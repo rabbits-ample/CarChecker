@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarChecker_Real")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92203241230d426afb882c34e539e884356f99e9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarChecker_Real")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarChecker_Real")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -31,3 +31,4 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/obj/Debug/net9.0/CarChecker_Real.pdb
 /Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/obj/Debug/net9.0/CarChecker_Real.genruntimeconfig.cache
 /Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/obj/Debug/net9.0/ref/CarChecker_Real.dll
+/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/obj/Debug/net9.0/CarChecker_Real.sourcelink.json
