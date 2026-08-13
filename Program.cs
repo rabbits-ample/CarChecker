@@ -1,3 +1,4 @@
+using CarChecker_Real;
 using CarChecker_Real.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSingleton<Token>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

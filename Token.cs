@@ -24,4 +24,6 @@ public class Token
     [JsonPropertyName("token_type")]
     public string TokenType { get; set; } = string.Empty;
 
+    public string TestThis { get; set; } 
+
 }
