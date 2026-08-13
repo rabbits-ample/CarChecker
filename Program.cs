@@ -3,6 +3,23 @@ using CarChecker_Real.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//List of potential secret directories
+var secretPaths = new[]
+{
+    "/run/secrets",                // Docker default
+    Path.Combine(Directory.GetCurrentDirectory(), "secrets")  // Local dev fallback
+};
+
+foreach (var path in secretPaths)
+{
+    if (Directory.Exists(path))
+    {
+        builder.Configuration.AddKeyPerFile(path, optional: true);
+
+        break; // Stop after the first valid path
+    }
+}
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents()
@@ -10,6 +27,8 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<Token>();
+builder.Services.AddScoped<IPlateLookupService, PlateLookupService>();
+builder.Services.AddScoped<IRetrieveTokenService, RetrieveTokenService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
