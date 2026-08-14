@@ -13,7 +13,7 @@ public class Token
     public string? AccessToken { get; set; }
 
     /// <summary>
-    /// How long before the token expires
+    /// How long before the token expires - seconds
     /// </summary>
     [JsonPropertyName("expires_in")]
     public int ExpiresIn { get; set; }
@@ -23,7 +23,10 @@ public class Token
     /// </summary>
     [JsonPropertyName("token_type")]
     public string TokenType { get; set; } = string.Empty;
+    
+   public DateTime RetrievedAt { get; set; }
+   
 
-    public string TestThis { get; set; } 
+    //public string TestThis { get; set; } 
 
 }

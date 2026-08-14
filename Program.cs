@@ -1,5 +1,5 @@
 using CarChecker_Real;
-using CarChecker_Real.Components;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,7 @@ foreach (var path in secretPaths)
 }
 
 // Add services to the container.
+// this reads/ grabs all controllers
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -28,7 +29,20 @@ builder.Services.AddRazorComponents()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<Token>();
 builder.Services.AddScoped<IPlateLookupService, PlateLookupService>();
-builder.Services.AddScoped<IRetrieveTokenService, RetrieveTokenService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddHttpClient("Paylock", client =>
+{
+    var url = builder.Configuration["Paylock:URL"];
+    client.BaseAddress = new Uri(url);
+});
+builder.Services.AddHttpClient("Textel", client =>
+{
+    var url = builder.Configuration["Textel:URL"];
+    client.BaseAddress = new Uri(url);
+});
+   
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,6 +59,7 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
+// this adds controllers
 app.MapControllers();
 // no UI is needed yo bro
 /*app.MapRazorComponents<App>()

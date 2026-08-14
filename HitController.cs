@@ -5,25 +5,42 @@ namespace CarChecker_Real;
 [ApiController]
 public class HitController: ControllerBase
 {
-    private readonly Token _token;
+    private Token _token;
     private readonly IPlateLookupService _plateLookupService;
-    private readonly IRetrieveTokenService _retrieveTokenService;
-    public HitController(Token token, IPlateLookupService plateLookupService, IRetrieveTokenService retrieveTokenService)
+    private readonly ITokenService _tokenService;
+    public HitController(Token token, IPlateLookupService plateLookupService, ITokenService tokenService)
     {
         _token = token;
         _plateLookupService = plateLookupService;
-        _retrieveTokenService = retrieveTokenService;
+        _tokenService = tokenService;
     }
 
     [HttpPost("{licensePlateNumber}")]
     public async Task<IActionResult> ReceiveHit(string licensePlateNumber)
     {
-        _token.TestThis = licensePlateNumber;
-        _retrieveTokenService.RefreshToken();
-        Console.WriteLine($"This is the token now: {_token.TestThis}");
-        return Ok();
-        // lookupPlate using _plateLookupService.lookupPlate(licensePlateNumber)
-        // call send text which processes the returned object.
+       _token = await _tokenService.GetTokenAsync(_token);
+       Car car =  await _plateLookupService.GetCarInfoAsync(licensePlateNumber,_token.AccessToken); // lookup plate, return Car object
+       /*if (car == null)
+       {
+            throw new Exception("Car not found");
+       }*/
+
+       /*
+       if (car.Registered == true)
+           if (car.Active == false)
+           {
+               // if opted in
+               var warningText = $"Dear {car.Owner}, your car is about to explode.";
+               //await _textelService.sendText(warningText);
+           }
+           */
+
+       // else, do nothing
+       return Ok();
+        
+        
+     
+        
     }
 
 }

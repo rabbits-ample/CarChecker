@@ -1,0 +1,27 @@
+namespace CarChecker_Real;
+/// <summary>
+/// Car object, data received from paylock will be mapped to this
+/// </summary>
+public class Car
+{
+    /// <summary>
+    /// LicensePlateNumber of given car
+    /// </summary>
+    public string LicensePlateNumber { get; set; } = null!;
+    /// <summary>
+    /// Model of car
+    /// </summary>
+    public string? Model { get; set; }
+    /// <summary>
+    /// Owner of car
+    /// </summary>
+    public string? Owner { get; set; }
+    /// <summary>
+    /// Active status of car's permits
+    /// </summary>
+    public bool? Active { get; set; }
+    /// <summary>
+    /// Registered status of car
+    /// </summary>
+    public bool? Registered { get; set; }
+}

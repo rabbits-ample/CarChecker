@@ -4,5 +4,5 @@ namespace CarChecker_Real;
 /// </summary>
 public interface IPlateLookupService
 {
-    
+    public  Task<Car> GetCarInfoAsync(string licensePlateNumber, string accessToken);
 }
