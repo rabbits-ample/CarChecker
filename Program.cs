@@ -30,6 +30,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<Token>();
 builder.Services.AddScoped<IPlateLookupService, PlateLookupService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ITextelService, TextelService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
 {

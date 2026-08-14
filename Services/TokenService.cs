@@ -38,11 +38,11 @@ public class TokenService: ITokenService
         {
             var clientId = _config["Credentials:ClientId"];
             if (string.IsNullOrWhiteSpace(clientId))
-                throw new InvalidOperationException("Configuration error: 'SyncSettings:ClientId' is missing or empty.");
+                throw new InvalidOperationException("Configuration error: 'Credentials:ClientId' is missing or empty.");
             
             var clientSecret = _config["Credentials:ClientSecret"];
             if (string.IsNullOrWhiteSpace(clientSecret))
-                throw new InvalidOperationException("Configuration error: 'SyncSettings:ClientSecret' is missing or empty.");
+                throw new InvalidOperationException("Configuration error: 'Credentials:ClientSecret' is missing or empty.");
             
             token.TokenType = "Valid";
             token.AccessToken = "FAKE_ACCESS_TOKEN";
@@ -53,13 +53,7 @@ public class TokenService: ITokenService
        
         return token;
         /*var clientId = _configuration["SyncSettings:ClientId"];
-        if (string.IsNullOrWhiteSpace(clientId))
-            throw new InvalidOperationException("Configuration error: 'SyncSettings:ClientId' is missing or empty.");
-
-        var clientSecret = _configuration["SyncSettings:ClientSecret"];
-        if (string.IsNullOrWhiteSpace(clientSecret))
-            throw new InvalidOperationException("Configuration error: 'SyncSettings:ClientSecret' is missing or empty.");
-
+ 
         var tokenRequest = new Dictionary<string, string>
         {
             ["grant_type"] = "client_credentials",

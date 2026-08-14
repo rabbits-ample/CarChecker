@@ -6,7 +6,7 @@ public class PlateLookupService : IPlateLookupService
 {
 
     private readonly HttpClient _httpClient;
-    public PlateLookupService(ITokenService tokenService, IHttpClientFactory httpClientFactory)
+    public PlateLookupService(IHttpClientFactory httpClientFactory)
     {
         _httpClient = httpClientFactory.CreateClient("Paylock");
     }

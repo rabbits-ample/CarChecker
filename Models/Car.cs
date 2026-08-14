@@ -24,4 +24,8 @@ public class Car
     /// Registered status of car
     /// </summary>
     public bool? Registered { get; set; }
+    /// <summary>
+    /// Owner's phone number
+    /// </summary>
+    public string? PhoneNumber { get; set; }
 }
