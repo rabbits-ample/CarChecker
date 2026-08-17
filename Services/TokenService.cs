@@ -3,21 +3,14 @@ namespace CarChecker_Real;
 /// <summary>
 /// Class for retrieving token service
 /// </summary>
-public class TokenService: ITokenService
+public class TokenService(HttpClient httpClient, TokenShelf tokenShelf ): ITokenService
 {
-    private readonly IConfiguration _config;
-    private readonly HttpClient _httpClient;
-    public TokenService(IConfiguration config, IHttpClientFactory httpClientFactory)
-    {
-        _config = config;
-        _httpClient = httpClientFactory.CreateClient("Paylock");
-    }
     public bool IsTokenValid(Token token)
     {
         if (!string.IsNullOrEmpty(token.AccessToken))
         {
             Console.WriteLine($"Current Time {DateTime.Now.ToString("hh:mm:ss tt")}");
-            var buffer = 60; // A token that expires in 1 second should not be valid
+            var buffer = 60; // A token that expires in 1-60 seconds should not be valid
             var expiresAt = token.RetrievedAt.AddSeconds(token.ExpiresIn - buffer);
             if (DateTime.Now < expiresAt)
             {
@@ -30,30 +23,33 @@ public class TokenService: ITokenService
         return false;
     }
 
-    public async Task<Token> GetTokenAsync(Token token)
+    public async Task<Token> GetTokenAsync(string clientId, string clientSecret )
     {
         // I need to learn how to get the secrets, and then submit those to the http url with those credentials
         // and to return the object as a token. 
-        if (!IsTokenValid(token))
+        tokenShelf.Tokens.TryGetValue($"{clientId},{clientSecret}", out Token token);
+        if (token == null || !IsTokenValid(token))
         {
-            var clientId = _config["Credentials:ClientId"];
             if (string.IsNullOrWhiteSpace(clientId))
-                throw new InvalidOperationException("Configuration error: 'Credentials:ClientId' is missing or empty.");
-            
-            var clientSecret = _config["Credentials:ClientSecret"];
+                throw new InvalidOperationException("Configuration error: 'ClientId' is missing or empty.");
             if (string.IsNullOrWhiteSpace(clientSecret))
-                throw new InvalidOperationException("Configuration error: 'Credentials:ClientSecret' is missing or empty.");
-            
-            token.TokenType = "Valid";
-            token.AccessToken = "FAKE_ACCESS_TOKEN";
-            token.ExpiresIn = 3600;
-            token.RetrievedAt = DateTime.Now;
+                throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
+           
+            //var response = await httpClient.GetAsync($"{clientId}");
 
+            //Token newToken = await response.Content.ReadFromJsonAsync<Token>();
+
+            Token newToken = new Token();
+            
+            newToken.TokenType = "Valid";
+            newToken.AccessToken = "FAKE_ACCESS_TOKEN";
+            newToken.ExpiresIn = 3600;
+            newToken.RetrievedAt = DateTime.Now;
+            tokenShelf.Tokens[$"{clientId},{clientSecret}"] = newToken;
+            return newToken;
         }
-       
         return token;
-        /*var clientId = _configuration["SyncSettings:ClientId"];
- 
+        /*
         var tokenRequest = new Dictionary<string, string>
         {
             ["grant_type"] = "client_credentials",

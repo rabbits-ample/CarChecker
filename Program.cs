@@ -1,4 +1,5 @@
 using CarChecker_Real;
+using CarChecker_Real.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,8 +28,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSingleton<Token>();
-builder.Services.AddScoped<IPlateLookupService, PlateLookupService>();
+builder.Services.AddSingleton<TokenShelf>();
+builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITextelService, TextelService>();
 

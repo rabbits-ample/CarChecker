@@ -3,14 +3,22 @@ namespace CarChecker_Real;
 public class TextelService: ITextelService
 {
     private readonly HttpClient _httpClient;
-    public TextelService(IHttpClientFactory httpClientFactory)
+    private readonly ITokenService _tokenService;
+    private readonly IConfiguration _config;
+    private readonly TokenShelf _tokenShelf;
+    public TextelService(TokenShelf tokenShelf, IHttpClientFactory httpClientFactory,IConfiguration config)
     {
-        _httpClient = httpClientFactory.CreateClient("Textel");
+        _httpClient = httpClientFactory.CreateClient("Paylock");
+        _tokenShelf = tokenShelf;
+        _tokenService = new TokenService(_httpClient,_tokenShelf);
+        _config = config;
     }
 
     public async Task sendTextAsync(string warningText,string phoneNumber)
     {
-        // I also just now realized, that I am unsure if Textel also will require a Token or whatever
+        var clientId = _config["Textel:ClientId"];
+        var clientSecret = _config["Textel:ClientSecret"];
+        Token token = await _tokenService.GetTokenAsync(clientId, clientSecret);
         _httpClient.PostAsJsonAsync($"path/{phoneNumber}", warningText); // I don't know what this is supposed to look like
     }
 }

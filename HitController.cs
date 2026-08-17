@@ -5,23 +5,21 @@ namespace CarChecker_Real;
 [ApiController]
 public class HitController: ControllerBase
 {
-    private Token _token;
-    private readonly IPlateLookupService _plateLookupService;
-    private readonly ITokenService _tokenService;
+
+    private readonly IPaylockService _paylockService;
+    
     private readonly ITextelService _textelService;
-    public HitController(Token token, IPlateLookupService plateLookupService, ITokenService tokenService, ITextelService textelService)
+    public HitController( IPaylockService paylockService, ITextelService textelService)
     {
-        _token = token;
-        _plateLookupService = plateLookupService;
-        _tokenService = tokenService;
+   
+        _paylockService = paylockService;
         _textelService = textelService;
     }
 
     [HttpPost("{licensePlateNumber}")]
     public async Task<IActionResult> ReceiveHit(string licensePlateNumber)
     {
-       _token = await _tokenService.GetTokenAsync(_token);
-       Car car =  await _plateLookupService.GetCarInfoAsync(licensePlateNumber,_token.AccessToken); // lookup plate, return Car object
+       Car car =  await _paylockService.GetCarInfoAsync(licensePlateNumber); // lookup plate, return Car object
       if (car == null)
        {
             throw new Exception("Car not found");

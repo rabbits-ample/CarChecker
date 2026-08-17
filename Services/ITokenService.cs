@@ -5,5 +5,5 @@ namespace CarChecker_Real;
 public interface ITokenService
 {
     public bool IsTokenValid(Token token);
-    public Task<Token> GetTokenAsync(Token token);
+    public Task<Token> GetTokenAsync( string clientId, string clientSecret );
 }
