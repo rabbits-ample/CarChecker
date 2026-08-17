@@ -36,7 +36,7 @@ public class TestTokenService
     [InlineData(3600)]
     [InlineData(3700)]
     [InlineData(10000)]
-    public void IsTokenValidReturnsFalseIfTokenIsExpired(int expirationInSeconds)
+    public void IsTokenValid_Returns_False_If_Token_Is_Expired(int expirationInSeconds)
     {
         
         var token = new Token { AccessToken = "mocked-token", ExpiresIn = 3600, RetrievedAt =  (DateTime.Now).AddSeconds(-expirationInSeconds) }; 
@@ -49,7 +49,7 @@ public class TestTokenService
     }
 
     [Fact]
-    public async Task GetTokenAsyncRaisesErrorIfResponseIsNotSuccess()
+    public async Task GetTokenAsync_Raises_Error_If_Response_Is_Not_Success()
     {
         var mockResponse = new Token { AccessToken = "mocked-token" };
         var httpClient = createMockHttpClient(HttpStatusCode.Forbidden, mockResponse);
@@ -80,7 +80,7 @@ public class TestTokenService
     [Theory]
     [InlineData("mocked_token")]
     [InlineData(null)]
-    public async Task GetTokenAsyncReturnsTokenThatMatchesExpectedToken(string? expectedToken)
+    public async Task GetTokenAsync_Returns_Token(string? expectedToken)
     {
         var mockResponse = new Token { AccessToken = expectedToken };
         var httpClient = createMockHttpClient(HttpStatusCode.OK, mockResponse);

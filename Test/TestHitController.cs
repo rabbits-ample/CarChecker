@@ -12,7 +12,7 @@ namespace Test;
 public class TestHitController
 {
     [Fact]
-    public async Task HitControllerSendsWarningTextIfCarIsRegisteredButNotActive()
+    public async Task HitController_Sends_Warning_Text_If_Car_Is_Registered_But_Not_Active()
     {
         var paylockMock = new Mock<IPaylockService>();
         paylockMock
@@ -28,7 +28,7 @@ public class TestHitController
         Assert.Equal(result.Value, "Warning text was sent" );
     }
     [Fact]
-    public async Task HitControllerReturnsNotFoundWhenLicensePlateIsNotInDatabase()
+    public async Task HitController_Returns_Not_Found_When_PaylockService_Returns_Null()
     {
         Car? nullCar = null;
         var paylockMock = new Mock<IPaylockService>();

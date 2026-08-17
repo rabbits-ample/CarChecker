@@ -105,3 +105,4 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/xunit.assert.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/xunit.core.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/xunit.execution.dotnet.dll
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/obj/Debug/net9.0/Test.sourcelink.json

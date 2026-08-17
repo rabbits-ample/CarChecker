@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+
 namespace CarChecker_Real.Services;
 /// <summary>
 /// Class for PaylockService service
@@ -21,7 +23,9 @@ public class PaylockService : IPaylockService
         var clientId = _config["Paylock:ClientId"];
         var clientSecret = _config["Paylock:ClientSecret"];
         Token token = await _tokenService.GetTokenAsync(clientId, clientSecret);
-        //var response = await _httpClient.GetAsync($"path/{token.AccessToken}/{licensePlateNumber}");
+        
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+        //var response = await _httpClient.GetAsync($"path/{licensePlateNumber}");
         //response.EnsureSuccessStatusCode();
         // Maybe potentially do a fallback -> if for some reason either an expired token gets through, it crashes, or whatever. Do we retry? 
         //return await response.Content.ReadFromJsonAsync<Car>();
