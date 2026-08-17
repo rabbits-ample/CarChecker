@@ -4,14 +4,14 @@
     "/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/Test.csproj": {}
   },
   "projects": {
-    "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj": {
+    "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj",
-        "projectName": "CarChecker_Real",
-        "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj",
+        "projectUniqueName": "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj",
+        "projectName": "Server",
+        "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj",
         "packagesPath": "/Users/jadenheiner/.nuget/packages/",
-        "outputPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/obj/",
+        "outputPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jadenheiner/.nuget/NuGet/NuGet.Config"
@@ -88,8 +88,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj": {
-                "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj"
+              "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj": {
+                "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj"
               }
             }
           }

@@ -454,14 +454,14 @@
           }
         }
       },
-      "CarChecker_Real/1.0.0": {
+      "Server/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "compile": {
-          "bin/placeholder/CarChecker_Real.dll": {}
+          "bin/placeholder/Server.dll": {}
         },
         "runtime": {
-          "bin/placeholder/CarChecker_Real.dll": {}
+          "bin/placeholder/Server.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -1035,17 +1035,17 @@
         "xunit.extensibility.execution.nuspec"
       ]
     },
-    "CarChecker_Real/1.0.0": {
+    "Server/1.0.0": {
       "type": "project",
-      "path": "../CarChecker_Real/CarChecker_Real.csproj",
-      "msbuildProject": "../CarChecker_Real/CarChecker_Real.csproj"
+      "path": "../Server/Server.csproj",
+      "msbuildProject": "../Server/Server.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "CarChecker_Real >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.12.0",
       "Moq >= 4.20.72",
+      "Server >= 1.0.0",
       "coverlet.collector >= 6.0.2",
       "xunit >= 2.9.3"
     ]
@@ -1075,8 +1075,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj": {
-              "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/CarChecker_Real/CarChecker_Real.csproj"
+            "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj": {
+              "projectPath": "/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/Server.csproj"
             }
           }
         }
