@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarChecker_Real;
@@ -22,7 +23,7 @@ public class HitController: ControllerBase
        Car car =  await _paylockService.GetCarInfoAsync(licensePlateNumber); // lookup plate, return Car object
       if (car == null)
        {
-            throw new Exception("Car not found");
+            return NotFound($"Car with license plate # '{licensePlateNumber}' not found.");
        }
       
        if (car.Registered == true)
@@ -30,7 +31,12 @@ public class HitController: ControllerBase
            {
                // if opted in
                var warningText = $"Dear {car.Owner}, your car is about to explode.";
-               await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+               var result = await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+               if (!(result == HttpStatusCode.OK))
+               {
+                   return StatusCode(502, "Failed to send warning text");
+               }
+               return Ok("Warning text was sent");
            }
 
        // else, do nothing

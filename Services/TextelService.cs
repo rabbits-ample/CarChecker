@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace CarChecker_Real;
 
 public class TextelService: ITextelService
@@ -14,11 +16,13 @@ public class TextelService: ITextelService
         _config = config;
     }
 
-    public async Task sendTextAsync(string warningText,string phoneNumber)
+    public async Task<HttpStatusCode> sendTextAsync(string warningText,string phoneNumber)
     {
         var clientId = _config["Textel:ClientId"];
         var clientSecret = _config["Textel:ClientSecret"];
         Token token = await _tokenService.GetTokenAsync(clientId, clientSecret);
-        _httpClient.PostAsJsonAsync($"path/{phoneNumber}", warningText); // I don't know what this is supposed to look like
+        var response = await _httpClient.PostAsJsonAsync($"path/{phoneNumber}", warningText); // I don't know what this is supposed to look like
+        //response.EnsureSuccessStatusCode();
+        return response.StatusCode;
     }
 }

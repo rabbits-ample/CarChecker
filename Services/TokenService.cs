@@ -3,7 +3,7 @@ namespace CarChecker_Real;
 /// <summary>
 /// Class for retrieving token service
 /// </summary>
-public class TokenService(HttpClient httpClient, TokenShelf tokenShelf ): ITokenService
+public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): ITokenService
 {
     public bool IsTokenValid(Token token)
     {
@@ -35,16 +35,9 @@ public class TokenService(HttpClient httpClient, TokenShelf tokenShelf ): IToken
             if (string.IsNullOrWhiteSpace(clientSecret))
                 throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
            
-            //var response = await httpClient.GetAsync($"{clientId}");
-
-            //Token newToken = await response.Content.ReadFromJsonAsync<Token>();
-
-            Token newToken = new Token();
-            
-            newToken.TokenType = "Valid";
-            newToken.AccessToken = "FAKE_ACCESS_TOKEN";
-            newToken.ExpiresIn = 3600;
-            newToken.RetrievedAt = DateTime.Now;
+            var response = await httpClient.GetAsync($"{clientId}");
+            response.EnsureSuccessStatusCode();
+            Token newToken = await response.Content.ReadFromJsonAsync<Token>();
             tokenShelf.Tokens[$"{clientId},{clientSecret}"] = newToken;
             return newToken;
         }
