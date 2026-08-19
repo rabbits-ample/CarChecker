@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace Server;
 
@@ -21,7 +22,14 @@ public class TextelService: ITextelService
     {
         var clientId = _config["Textel:ClientId"];
         var clientSecret = _config["Textel:ClientSecret"];
-        Token token = await _tokenService.GetTokenAsync(clientId, clientSecret);
+        if (string.IsNullOrWhiteSpace(clientId))
+            throw new InvalidOperationException("Configuration error: 'ClientId' is missing or empty.");
+        if (string.IsNullOrWhiteSpace(clientSecret))
+            throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
+        
+        var content = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
+        
+        Token token = await _tokenService.GetTokenAsync("auth/authenticate",content);
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken); // I know that this sets the default. There is a way to attach to request instead of the other way around. 
         var response = await _httpClient.PostAsJsonAsync($"path/{phoneNumber}", warningText); // I don't know what this is supposed to look like
         return response.StatusCode;

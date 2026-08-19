@@ -1,12 +1,7 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/.msCoverageSourceRootsMapping_Test
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CoverletSourceRootsMapping_Test
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.deps.json
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.runtimeconfig.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/appsettings.Development.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/appsettings.json
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.staticwebassets.runtime.json
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.staticwebassets.endpoints.json
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Test.deps.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Test.runtimeconfig.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Test.dll
@@ -88,8 +83,6 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.dll
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/CarChecker_Real.pdb
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/obj/Debug/net9.0/Test.csproj.AssemblyReference.cache
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/obj/Debug/net9.0/Test.GeneratedMSBuildEditorConfig.editorconfig
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/obj/Debug/net9.0/Test.AssemblyInfoInputs.cache
@@ -106,3 +99,10 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/xunit.core.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/xunit.execution.dotnet.dll
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Test/obj/Debug/net9.0/Test.sourcelink.json
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.deps.json
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.runtimeconfig.json
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.staticwebassets.runtime.json
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.staticwebassets.endpoints.json
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.dll
+/Users/jadenheiner/RiderProjects/CarChecker_Real/Test/bin/Debug/net9.0/Server.pdb

@@ -12,7 +12,7 @@ public class TestTokenService
 {
     public HttpClient createMockHttpClient(HttpStatusCode statusCode, object? content = null)
     {
-        // Setup a mock HttpMessageHandler to control the HttpClient's behavior.
+        // Set up a mock HttpMessageHandler to control the HttpClient's behavior.
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
         mockHttpMessageHandler
             .Protected()
@@ -38,42 +38,46 @@ public class TestTokenService
     [InlineData(10000)]
     public void IsTokenValid_Returns_False_If_Token_Is_Expired(int expirationInSeconds)
     {
-        
+        // Arrange
         var token = new Token { AccessToken = "mocked-token", ExpiresIn = 3600, RetrievedAt =  (DateTime.Now).AddSeconds(-expirationInSeconds) }; 
         var httpClient = createMockHttpClient(HttpStatusCode.OK, token);
         var tokenShelf = new TokenShelf();
-        // Create an instance of the service with the mocked dependencies.
+        // Act
         var service = new TokenService(httpClient, tokenShelf);
         var isValid = service.IsTokenValid(token);
+        // Assert
         Assert.False(isValid);
     }
 
     [Fact]
     public async Task GetTokenAsync_Raises_Error_If_Response_Is_Not_Success()
     {
+        // Arrange
         var mockResponse = new Token { AccessToken = "mocked-token" };
         var httpClient = createMockHttpClient(HttpStatusCode.Forbidden, mockResponse);
         var tokenShelf = new TokenShelf();
-        // Create an instance of the service with the mocked dependencies.
-        var service = new TokenService(httpClient, tokenShelf);
         var testClientId = "test-client-id";
         var testClientSecret = "test-client-secret";
-        // Call the method under test to get the token.
-        
-        var exception = await Assert.ThrowsAsync<HttpRequestException>(() => service.GetTokenAsync(testClientId, testClientSecret));
+        var path = "fake/path";
+        var content = new StringContent("Test");
+        // Act 
+        var service = new TokenService(httpClient, tokenShelf);
+        // Assert
+        var exception = await Assert.ThrowsAsync<HttpRequestException>(() => service.GetTokenAsync(path, content));
         Assert.Equal("Response status code does not indicate success: 403 (Forbidden).", exception.Message);
     }
 
     [Fact]
     public void IsTokenValidReturnsFalseIfAccessTokenIsEmpty()
     {
-        
+        // Arrange
         var token = new Token { AccessToken = "", ExpiresIn = 3600, RetrievedAt = DateTime.Now }; 
         var httpClient = createMockHttpClient(HttpStatusCode.OK, token);
         var tokenShelf = new TokenShelf();
-        // Create an instance of the service with the mocked dependencies.
+        // Act
         var service = new TokenService(httpClient, tokenShelf);
         var isValid = service.IsTokenValid(token);
+        // Assert
         Assert.False(isValid);
     }
 
@@ -82,19 +86,20 @@ public class TestTokenService
     [InlineData(null)]
     public async Task GetTokenAsync_Returns_Token(string? expectedToken)
     {
+        // Arrange
         var mockResponse = new Token { AccessToken = expectedToken };
         var httpClient = createMockHttpClient(HttpStatusCode.OK, mockResponse);
         var tokenShelf = new TokenShelf();
-        // Create an instance of the service with the mocked dependencies.
-        var service = new TokenService(httpClient, tokenShelf);
         var testClientId = "test-client-id";
         var testClientSecret = "test-client-secret";
-        // Call the method under test to get the token.
-        var token = await service.GetTokenAsync(testClientId, testClientSecret);
-
-        // Verify that the returned token matches the expected mocked token.
+        var path = "fake/path";
+        var content = new StringContent("Test");
+        // Act
+        var service = new TokenService(httpClient, tokenShelf);
+        var token = await service.GetTokenAsync(path, content);
+        // Assert
         Assert.Equal(expectedToken, token.AccessToken);
-        tokenShelf.Tokens.TryGetValue($"{testClientId},{testClientSecret}", out Token dictToken);
+        tokenShelf.Tokens.TryGetValue(content, out Token dictToken);
         Assert.Equal(dictToken.AccessToken, token.AccessToken);
     }
 }

@@ -6,7 +6,8 @@ namespace Server;
 [ApiController]
 public class HitController: ControllerBase
 {
-
+// depending on whether or not we can receive to a specific endpoint, we might have to
+// change this controller so that it instead is a background process that initiates and calls a method.
     private readonly IPaylockService _paylockService;
     
     private readonly ITextelService _textelService;

@@ -5,5 +5,5 @@ namespace Server;
 public interface ITokenService
 {
     public bool IsTokenValid(Token token);
-    public Task<Token> GetTokenAsync( string clientId, string clientSecret );
+    public Task<Token> GetTokenAsync( string path, StringContent content);
 }

@@ -23,22 +23,19 @@ public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): IToken
         return false;
     }
 
-    public async Task<Token> GetTokenAsync(string clientId, string clientSecret )
+    public async Task<Token> GetTokenAsync(string path, StringContent content)
     {
         // I need to learn how to get the secrets, and then submit those to the http url with those credentials
         // and to return the object as a token. 
-        tokenShelf.Tokens.TryGetValue($"{clientId},{clientSecret}", out Token token);
+        tokenShelf.Tokens.TryGetValue(content, out Token token);
         if (token == null || !IsTokenValid(token))
         {
-            if (string.IsNullOrWhiteSpace(clientId))
-                throw new InvalidOperationException("Configuration error: 'ClientId' is missing or empty.");
-            if (string.IsNullOrWhiteSpace(clientSecret))
-                throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
-           
-            var response = await httpClient.GetAsync($"{clientId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, path);
+            request.Content = content;
+            var response = await httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             Token newToken = await response.Content.ReadFromJsonAsync<Token>();
-            tokenShelf.Tokens[$"{clientId},{clientSecret}"] = newToken;
+            tokenShelf.Tokens[content] = newToken;
             return newToken;
         }
         return token;

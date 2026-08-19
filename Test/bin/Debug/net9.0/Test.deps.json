@@ -8,9 +8,9 @@
     ".NETCoreApp,Version=v9.0": {
       "Test/1.0.0": {
         "dependencies": {
-          "CarChecker_Real": "1.0.0",
           "Microsoft.NET.Test.Sdk": "17.12.0",
           "Moq": "4.20.72",
+          "Server": "1.0.0",
           "coverlet.collector": "6.0.2",
           "xunit": "2.9.3"
         },
@@ -363,9 +363,9 @@
           }
         }
       },
-      "CarChecker_Real/1.0.0": {
+      "Server/1.0.0": {
         "runtime": {
-          "CarChecker_Real.dll": {
+          "Server.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -498,7 +498,7 @@
       "path": "xunit.extensibility.execution/2.9.3",
       "hashPath": "xunit.extensibility.execution.2.9.3.nupkg.sha512"
     },
-    "CarChecker_Real/1.0.0": {
+    "Server/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

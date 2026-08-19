@@ -22,7 +22,13 @@ public class PaylockService : IPaylockService
     {
         var clientId = _config["Paylock:ClientId"];
         var clientSecret = _config["Paylock:ClientSecret"];
-        Token token = await _tokenService.GetTokenAsync(clientId, clientSecret);
+        if (string.IsNullOrWhiteSpace(clientId))
+            throw new InvalidOperationException("Configuration error: 'ClientId' is missing or empty.");
+        if (string.IsNullOrWhiteSpace(clientSecret))
+            throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
+        
+        var content = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
+        Token token = await _tokenService.GetTokenAsync("path",content);
         
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
         //var response = await _httpClient.GetAsync($"path/{licensePlateNumber}");
