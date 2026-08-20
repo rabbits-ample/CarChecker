@@ -1,30 +1,33 @@
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
+using Server.Services;
 
-namespace Server;
-[Route("api")]
-[ApiController]
-public class HitController: ControllerBase
+namespace Server.Interfaces;
+public class HandleHitService : IHandleHitService
 {
 // depending on whether or not we can receive to a specific endpoint, we might have to
 // change this controller so that it instead is a background process that initiates and calls a method.
     private readonly IPaylockService _paylockService;
     
     private readonly ITextelService _textelService;
-    public HitController( IPaylockService paylockService, ITextelService textelService)
+    public HandleHitService( IPaylockService paylockService, ITextelService textelService)
     {
    
         _paylockService = paylockService;
         _textelService = textelService;
     }
-
-    [HttpPost("{licensePlateNumber}")]
-    public async Task<IActionResult> ReceiveHit(string licensePlateNumber)
+    
+    public async void ReceiveHit(string plate, bool test)
     {
-       Car car =  await _paylockService.GetCarInfoAsync(licensePlateNumber); // lookup plate, return Car object
-      if (car == null)
+        if (test)
+        {
+            Console.WriteLine(plate);
+            return;
+        }
+
+        Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
+       if (car == null)
        {
-            return NotFound($"Car with license plate # '{licensePlateNumber}' not found.");
+           Console.WriteLine($"Car with license plate # '{plate}' not found.");
        }
       
        if (car.Registered == true)
@@ -35,17 +38,11 @@ public class HitController: ControllerBase
                var result = await _textelService.sendTextAsync(warningText,car.PhoneNumber);
                if (!(result == HttpStatusCode.OK))
                {
-                   return StatusCode(502, "Failed to send warning text");
+                   Console.WriteLine("Failed to send warning text");
                }
-               return Ok("Warning text was sent");
+               Console.WriteLine("Warning text was sent");
            }
-
        // else, do nothing
-       return Ok();
-        
-        
-     
-        
     }
 
 }

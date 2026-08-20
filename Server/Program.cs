@@ -1,4 +1,5 @@
 using Server;
+using Server.Interfaces;
 using Server.Services;
 
 
@@ -32,6 +33,8 @@ builder.Services.AddSingleton<TokenShelf>();
 builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITextelService, TextelService>();
+builder.Services.AddScoped<IHandleHitService, HandleHitService>();
+builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
 {
