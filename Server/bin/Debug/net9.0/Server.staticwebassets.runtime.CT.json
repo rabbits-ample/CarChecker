@@ -1,1 +1,1 @@
-{"ContentRoots":["/src/Server/wwwroot","/src/Server/obj/Debug/net9.0/compressed"],"Root":{"Children":{"app.css":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"app.css"},"Patterns":null},"app.css.gz":{"Children":null,"Asset":{"ContentRootIndex":1,"SubPath":"jpk9h6ndok-z4z4fil66m.gz"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+{"ContentRoots":["/src/Server/wwwroot"],"Root":{"Children":null,"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}

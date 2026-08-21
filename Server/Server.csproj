@@ -14,24 +14,28 @@
       <Content Remove="Components\Pages\**" />
       <Content Remove="Components\Layout\**" />
       <Content Remove="Components\**" />
+      <Content Remove="wwwroot\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Components\Pages\**" />
       <Compile Remove="Components\Layout\**" />
       <Compile Remove="Components\**" />
+      <Compile Remove="wwwroot\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Components\Pages\**" />
       <EmbeddedResource Remove="Components\Layout\**" />
       <EmbeddedResource Remove="Components\**" />
+      <EmbeddedResource Remove="wwwroot\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Components\Pages\**" />
       <None Remove="Components\Layout\**" />
       <None Remove="Components\**" />
+      <None Remove="wwwroot\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -41,6 +45,7 @@
       <_ContentIncludedByDefault Remove="Components\App.razor" />
       <_ContentIncludedByDefault Remove="Components\Routes.razor" />
       <_ContentIncludedByDefault Remove="Components\_Imports.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\app.css" />
     </ItemGroup>
 
 </Project>

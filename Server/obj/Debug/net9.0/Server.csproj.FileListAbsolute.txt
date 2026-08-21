@@ -18,7 +18,6 @@
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/scopedcss/bundle/Server.styles.css
-/Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/compressed/jpk9h6ndok-z4z4fil66m.gz
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/staticwebassets.build.json
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/staticwebassets.build.json.cache
 /Users/jadenheiner/RiderProjects/CarChecker_Real/Server/obj/Debug/net9.0/staticwebassets.development.json

@@ -4,5 +4,5 @@ namespace Server;
 /// </summary>
 public interface IPaylockService
 {
-    public Task<Car> GetCarInfoAsync(string licensePlateNumber);
+    public Task<Car> GetCarInfoAsync(string plate);
 }

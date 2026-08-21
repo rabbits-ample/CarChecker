@@ -4,5 +4,6 @@
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestTokenService&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestHitController.HitControllerReturnsNotFoundWhenLicensePlateIsNotInDatabase&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestHitController&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestHandleHitService&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

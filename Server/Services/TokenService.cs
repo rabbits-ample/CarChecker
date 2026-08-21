@@ -23,19 +23,38 @@ public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): IToken
         return false;
     }
 
-    public async Task<Token> GetTokenAsync(string path, StringContent content)
+    public async Task<Token> GetTokenAsync(string path, StringContent credentials)
     {
         // I need to learn how to get the secrets, and then submit those to the http url with those credentials
         // and to return the object as a token. 
-        tokenShelf.Tokens.TryGetValue(content, out Token token);
+        tokenShelf.Tokens.TryGetValue(credentials, out Token token);
         if (token == null || !IsTokenValid(token))
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, path);
-            request.Content = content;
-            var response = await httpClient.SendAsync(request);
+            /*var request = new HttpRequestMessage(HttpMethod.Get, path);
+            request.Content = credentials;
+            var response = await httpClient.SendAsync(request);*/
+            var response = new HttpResponseMessage();
+            try
+            {
+                response = await httpClient.PostAsync(path, credentials);
+            }
+            catch (HttpRequestException e)
+            {
+                // throwing an error here gets ignored, and I don't know why
+                Console.WriteLine($"Could not retrieve token from path {httpClient.BaseAddress}{path}. {e.Message}");
+            }
+
             response.EnsureSuccessStatusCode();
+            
             Token newToken = await response.Content.ReadFromJsonAsync<Token>();
-            tokenShelf.Tokens[content] = newToken;
+            
+            if (newToken == null)
+            {
+                Console.WriteLine("Token response null. Failed to get token.");
+                return null;
+            }
+
+            tokenShelf.Tokens[credentials] = newToken;
             return newToken;
         }
         return token;

@@ -18,23 +18,27 @@ public class PaylockService : IPaylockService
         _config = config;
     }
 
-    public async Task<Car> GetCarInfoAsync(string licensePlateNumber)
+    public async Task<Car> GetCarInfoAsync(string plate)
     {
         var clientId = _config["Paylock:ClientId"];
         var clientSecret = _config["Paylock:ClientSecret"];
+        
         if (string.IsNullOrWhiteSpace(clientId))
             throw new InvalidOperationException("Configuration error: 'ClientId' is missing or empty.");
         if (string.IsNullOrWhiteSpace(clientSecret))
             throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
         
-        var content = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
-        Token token = await _tokenService.GetTokenAsync("path",content);
+        var credentials = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
+        
+        Token token = await _tokenService.GetTokenAsync("path",credentials);
+        // token could be null here? do a check
         
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
-        //var response = await _httpClient.GetAsync($"path/{licensePlateNumber}");
-        //response.EnsureSuccessStatusCode();
+        
+        var response = await _httpClient.GetAsync($"path/{plate}");
+        
+        response.EnsureSuccessStatusCode();
         // Maybe potentially do a fallback -> if for some reason either an expired token gets through, it crashes, or whatever. Do we retry? 
-        //return await response.Content.ReadFromJsonAsync<Car>();
-        return new Car { Active = false, Registered = true };
+        return await response.Content.ReadFromJsonAsync<Car>();
     }
 }

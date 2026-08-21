@@ -1,7 +1,6 @@
 using System.Net;
-using Server.Services;
 
-namespace Server.Interfaces;
+namespace Server.Services;
 public class HandleHitService : IHandleHitService
 {
 // depending on whether or not we can receive to a specific endpoint, we might have to
@@ -16,18 +15,19 @@ public class HandleHitService : IHandleHitService
         _textelService = textelService;
     }
     
-    public async void ReceiveHit(string plate, bool test)
+    public async Task ReceiveHit(string plate, bool test)
     {
-        if (test)
+        /*if (test)
         {
             Console.WriteLine(plate);
             return;
-        }
+        }*/
 
         Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
        if (car == null)
        {
            Console.WriteLine($"Car with license plate # '{plate}' not found.");
+           return;
        }
       
        if (car.Registered == true)
@@ -36,11 +36,14 @@ public class HandleHitService : IHandleHitService
                // if opted in
                var warningText = $"Dear {car.Owner}, your car is about to explode.";
                var result = await _textelService.sendTextAsync(warningText,car.PhoneNumber);
-               if (!(result == HttpStatusCode.OK))
+               if (result != HttpStatusCode.OK)
                {
                    Console.WriteLine("Failed to send warning text");
                }
-               Console.WriteLine("Warning text was sent");
+               else
+               {
+                   Console.WriteLine("Warning text was sent");
+               }
            }
        // else, do nothing
     }

@@ -5,9 +5,9 @@ namespace Server;
 public class Car
 {
     /// <summary>
-    /// LicensePlateNumber of given car
+    /// Plate of given car
     /// </summary>
-    public string LicensePlateNumber { get; set; } = null!;
+    public string Plate { get; set; } = null!;
     /// <summary>
     /// Model of car
     /// </summary>

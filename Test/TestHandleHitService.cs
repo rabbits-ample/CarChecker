@@ -1,8 +1,7 @@
 using System.Net;
 using Server;
 using Moq;
-using Server.Interfaces;
-
+using Server.Services;
 namespace Test;
 
 public class TestHandleHitService
