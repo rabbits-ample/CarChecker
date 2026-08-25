@@ -41,7 +41,7 @@ public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): IToken
             catch (HttpRequestException e)
             {
                 // throwing an error here gets ignored, and I don't know why
-                Console.WriteLine($"Could not retrieve token from path {httpClient.BaseAddress}{path}. {e.Message}");
+                Console.WriteLine($"Could not retrieve token from path {httpClient.BaseAddress}{path}: {e.Message}");
             }
 
             response.EnsureSuccessStatusCode();

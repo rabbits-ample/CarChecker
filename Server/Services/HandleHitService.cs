@@ -17,35 +17,16 @@ public class HandleHitService : IHandleHitService
     
     public async Task ReceiveHit(string plate, bool test)
     {
-        /*if (test)
-        {
-            Console.WriteLine(plate);
-            return;
-        }*/
-
         Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
-       if (car == null)
-       {
-           Console.WriteLine($"Car with license plate # '{plate}' not found.");
-           return;
-       }
       
        if (car.Registered == true)
            if (car.Active == false)
            {
                // if opted in
-               var warningText = $"Dear {car.Owner}, your car is about to explode.";
-               var result = await _textelService.sendTextAsync(warningText,car.PhoneNumber);
-               if (result != HttpStatusCode.OK)
-               {
-                   Console.WriteLine("Failed to send warning text");
-               }
-               else
-               {
-                   Console.WriteLine("Warning text was sent");
-               }
+               var warningText = $"Dear {car.Owner}, your car is about to explode."; 
+               await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+       
            }
-       // else, do nothing
     }
 
 }

@@ -22,8 +22,7 @@ public class ListenService:BackgroundService
             try
             {
                 await ConnectAndReadAsync(stoppingToken);
-              //  await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-            }catch (Exception exception) when (!stoppingToken.IsCancellationRequested)
+            }catch (Exception exception) when (!stoppingToken.IsCancellationRequested )
             {
                 Console.WriteLine($"Stream dropped: {exception.Message}. Reconnecting...");
                 await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken); // backoff
@@ -49,14 +48,23 @@ public class ListenService:BackgroundService
 
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
-        // Find a way to catch silence. Because this code technically only triggers on receive, we might have to do an external thing
-        while (!reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+        
+        while (!cancellationToken.IsCancellationRequested)
         {
-            var line =  await reader.ReadLineAsync();
+            var awaitLimitInSeconds = 10;
+            var expiration =  Task.Delay(awaitLimitInSeconds*1000);
+            var lineResponse = reader.ReadLineAsync();
+
+            await Task.WhenAny(lineResponse, expiration);
+            if (expiration.IsCompleted)
+            {
+                throw new Exception($"Stream has been silent for more than {awaitLimitInSeconds} seconds");
+            }
+            var line = lineResponse.Result;
             if (!string.IsNullOrWhiteSpace(line))
             {
                 var hitObject = JsonSerializer.Deserialize<HitObject>(line);
-                handleHitServiceService.ReceiveHit(hitObject.Plate);
+                handleHitServiceService.ReceiveHit(hitObject.Plate,true);
             }
             
            

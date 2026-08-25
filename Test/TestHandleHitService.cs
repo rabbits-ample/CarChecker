@@ -18,31 +18,23 @@ public class TestHandleHitService
         var textelMock = new Mock<ITextelService>();
         textelMock
             .Setup(m => m.sendTextAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .ReturnsAsync(HttpStatusCode.OK);
-        var hitController = new HandleHitService(paylockMock.Object,textelMock.Object);
-        // Act
-        //var result = (OkObjectResult)(await hitController.ReceiveHit("LicensePlate#"));
-        // Assert
-        //Assert.Equal(result.Value, "Warning text was sent" );
-    }
-    [Fact]
-    public async Task HitController_Returns_Not_Found_When_PaylockService_Returns_Null()
-    {
-        // Arrange
-        Car? nullCar = null;
-        var paylockMock = new Mock<IPaylockService>();
-        paylockMock
-            .Setup(m => m.GetCarInfoAsync(It.IsAny<string>()))
-            .ReturnsAsync(nullCar);
+            .ReturnsAsync(new HttpResponseMessage{StatusCode = HttpStatusCode.OK});
+        var handleHitService = new HandleHitService(paylockMock.Object,textelMock.Object);
         
-        var textelMock = new Mock<ITextelService>();
-        textelMock
-            .Setup(m => m.sendTextAsync(It.IsAny<string>(), It.IsAny<string>()))
-            .ReturnsAsync(HttpStatusCode.OK);
-        var hitController = new HandleHitService(paylockMock.Object,textelMock.Object);
+       
         // Act
-       // var result =(NotFoundObjectResult)(await hitController.ReceiveHit("NOT_IN_DATABASE"));
+        using (var stringWriter = new StringWriter())
+        {
+            Console.SetOut(stringWriter);
+            await handleHitService.ReceiveHit("LicensePlate#", false);
+            var output = stringWriter.ToString();
+        
         // Assert
-       // Assert.Equal(result.Value, "Car with license plate # 'NOT_IN_DATABASE' not found." );
+            
+            Assert.Equal("Warning text was sent\n",output);
+        }
+    
+        
+        
     }
 }

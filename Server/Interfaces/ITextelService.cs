@@ -4,5 +4,5 @@ namespace Server;
 
 public interface ITextelService
 {
-    public Task<HttpStatusCode> sendTextAsync(string text, string phoneNumber);
+    public Task<HttpResponseMessage> sendTextAsync(string text, string phoneNumber);
 }

@@ -34,11 +34,32 @@ public class PaylockService : IPaylockService
         // token could be null here? do a check
         
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+
+        try
+        {
+            var response = await _httpClient.GetAsync($"path/{plate}");
+            response.EnsureSuccessStatusCode();
+           
+            var car = await response.Content.ReadFromJsonAsync<Car>();
+            
+            if (car == null)
+            {
+                Console.WriteLine($"Car with license plate # '{plate}' not found.");
+                return null;
+            }
+
+            return car;
+        }
+        catch(HttpRequestException e)
+        {
+            Console.WriteLine("Network Error while trying to get car: " + e.Message);
+            return null;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("An unexpected error occurred while trying to get car: " + e.Message);
+            return null;
+        }
         
-        var response = await _httpClient.GetAsync($"path/{plate}");
-        
-        response.EnsureSuccessStatusCode();
-        // Maybe potentially do a fallback -> if for some reason either an expired token gets through, it crashes, or whatever. Do we retry? 
-        return await response.Content.ReadFromJsonAsync<Car>();
     }
 }

@@ -37,12 +37,12 @@ builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
 {
-    var url = builder.Configuration["Paylock:URL"];
+    var url = builder.Configuration["ApiUrls:Paylock"];
     client.BaseAddress = new Uri(url);
 });
 builder.Services.AddHttpClient("Textel", client =>
 {
-    var url = builder.Configuration["Textel:URL"];
+    var url = builder.Configuration["ApiUrls:Textel"];
     client.BaseAddress = new Uri(url);
 });
    
