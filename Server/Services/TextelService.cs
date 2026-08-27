@@ -1,7 +1,5 @@
-using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Server;
 
@@ -21,6 +19,29 @@ public class TextelService: ITextelService
 
     public async Task<HttpResponseMessage> sendTextAsync(string warningText,string phoneNumber)
     {
+        await Authenticate();
+        var json = new
+        {
+            messageId =  "",
+            to =  phoneNumber,
+            from = "+8012839393",
+            body =  warningText,
+            attachmentUrl =  ""
+        };
+        var content = JsonSerializer.Serialize(json);
+        var response = await _httpClient.PostAsJsonAsync($"message/send", content); 
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Failed to send warning text");
+        }
+        else
+        {
+            Console.WriteLine("Warning text was sent");
+        }
+        return response;
+    }
+    public async Task Authenticate()
+    {
         var clientId = _config["Textel:ClientId"];
         var clientSecret = _config["Textel:ClientSecret"];
         if (string.IsNullOrWhiteSpace(clientId))
@@ -28,33 +49,11 @@ public class TextelService: ITextelService
         if (string.IsNullOrWhiteSpace(clientSecret))
             throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
         
-        var content = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
+        var authentication = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
         
-        Token token = await _tokenService.GetTokenAsync("auth/authenticate",content);
+        Token token = await _tokenService.GetTokenAsync("auth/authenticate",authentication);
         // token could be null here
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken); // I know that this sets the default. There is a way to attach to request instead of the other way around. 
-        try
-        {
-            var response = await _httpClient.PostAsJsonAsync($"path/{phoneNumber}", warningText); // I don't know what this is supposed to look like
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                Console.WriteLine("Failed to send warning text");
-            }
-            else
-            {
-                Console.WriteLine("Warning text was sent");
-            }
-            return response;
-        }
-        catch (HttpRequestException e)
-        {
-            Console.WriteLine("Network Error while trying to send text: " + e.Message);
-            return null;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("An unexpected error occurred while trying to send text: " + e.Message);
-            return null;
-        }
+
     }
 }

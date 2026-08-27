@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Server.Services;
 public class HandleHitService : IHandleHitService
 {
@@ -15,7 +13,7 @@ public class HandleHitService : IHandleHitService
         _textelService = textelService;
     }
     
-    public async Task ReceiveHit(string plate, bool test)
+    public async Task ReceiveHit(string plate)
     {
         Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
       

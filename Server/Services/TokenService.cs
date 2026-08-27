@@ -33,29 +33,27 @@ public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): IToken
             /*var request = new HttpRequestMessage(HttpMethod.Get, path);
             request.Content = credentials;
             var response = await httpClient.SendAsync(request);*/
-            var response = new HttpResponseMessage();
+  
             try
             {
-                response = await httpClient.PostAsync(path, credentials);
+                var response = await Utils.Retry.Execute(() => httpClient.PostAsync(path, credentials));
+                Token newToken = await response.Content.ReadFromJsonAsync<Token>();
+            
+                if (newToken == null)
+                {
+                    Console.WriteLine("Token response null. Failed to get token.");
+                    return null;
+                    // maybe instead of this, if token is null ( depending on the response code or whatever) you can retry 3 times with a small bugger
+                }
+
+                tokenShelf.Tokens[credentials] = newToken;
+                return newToken;
             }
             catch (HttpRequestException e)
             {
                 // throwing an error here gets ignored, and I don't know why
                 Console.WriteLine($"Could not retrieve token from path {httpClient.BaseAddress}{path}: {e.Message}");
             }
-
-            response.EnsureSuccessStatusCode();
-            
-            Token newToken = await response.Content.ReadFromJsonAsync<Token>();
-            
-            if (newToken == null)
-            {
-                Console.WriteLine("Token response null. Failed to get token.");
-                return null;
-            }
-
-            tokenShelf.Tokens[credentials] = newToken;
-            return newToken;
         }
         return token;
         /*
@@ -66,21 +64,7 @@ public class TokenService(HttpClient httpClient ,TokenShelf tokenShelf ): IToken
             ["client_secret"] = clientSecret,
             ["scope"] = ""
         };
-
-        var response = await Utils.Retry.Execute(() =>
-            _httpClient.PostAsync(_configuration["SyncSettings:TokenUri"], new FormUrlEncodedContent(tokenRequest)));
-
-        response.EnsureSuccessStatusCode();
-
-        var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>();
-
-        if (tokenResponse == null)
-        {
-            Console.WriteLine("Token response null. Failed to get token.");
-            return null;
-        }
-
-        return tokenResponse.AccessToken;*/
+            _httpClient.PostAsync(_configuration["SyncSettings:TokenUri"], new FormUrlEncodedContent(tokenRequest)));*/
     }
 
 }

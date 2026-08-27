@@ -20,6 +20,24 @@ public class PaylockService : IPaylockService
 
     public async Task<Car> GetCarInfoAsync(string plate)
     {
+        await Authenticate();
+        
+            var response = await _httpClient.GetAsync($"path/{plate}");
+            response.EnsureSuccessStatusCode();
+           
+            var car = await response.Content.ReadFromJsonAsync<Car>();
+            
+            if (car == null)
+            {
+                Console.WriteLine($"Car with license plate # '{plate}' not found.");
+                return null;
+            }
+
+            return car;
+        
+    }
+    public async Task Authenticate()
+    {
         var clientId = _config["Paylock:ClientId"];
         var clientSecret = _config["Paylock:ClientSecret"];
         
@@ -35,31 +53,5 @@ public class PaylockService : IPaylockService
         
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
 
-        try
-        {
-            var response = await _httpClient.GetAsync($"path/{plate}");
-            response.EnsureSuccessStatusCode();
-           
-            var car = await response.Content.ReadFromJsonAsync<Car>();
-            
-            if (car == null)
-            {
-                Console.WriteLine($"Car with license plate # '{plate}' not found.");
-                return null;
-            }
-
-            return car;
-        }
-        catch(HttpRequestException e)
-        {
-            Console.WriteLine("Network Error while trying to get car: " + e.Message);
-            return null;
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine("An unexpected error occurred while trying to get car: " + e.Message);
-            return null;
-        }
-        
     }
 }

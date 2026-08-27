@@ -1,10 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Server;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Moq.Protected;
-using Xunit;
 
 namespace Test;
 

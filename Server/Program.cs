@@ -45,7 +45,14 @@ builder.Services.AddHttpClient("Textel", client =>
     var url = builder.Configuration["ApiUrls:Textel"];
     client.BaseAddress = new Uri(url);
 });
-   
+
+
+builder.Services.AddHttpClient("Genetec", client =>
+{
+    //var url = builder.Configuration["ApiUrls:Genetec"];
+    var url = builder.Configuration["ApiUrls:Testetec"];
+    client.BaseAddress = new Uri(url);
+});
 
 var app = builder.Build();
 
@@ -64,9 +71,13 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 // this adds controllers
-app.MapControllers();
+
 // no UI is needed yo bro
 /*app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();*/
 
 app.Run();
+
+public partial class Program
+{
+}
