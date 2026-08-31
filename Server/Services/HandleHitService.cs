@@ -12,19 +12,16 @@ public class HandleHitService : IHandleHitService
         _paylockService = paylockService;
         _textelService = textelService;
     }
-    
+
     public async Task ReceiveHit(string plate)
     {
         Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
       
-       if (car.Registered == true)
-           if (car.Active == false)
-           {
+       if (car.Registered == true && car.Active == false){
                // if opted in
                var warningText = $"Dear {car.Owner}, your car is about to explode."; 
                await _textelService.sendTextAsync(warningText,car.PhoneNumber);
-       
-           }
+        }
     }
 
 }

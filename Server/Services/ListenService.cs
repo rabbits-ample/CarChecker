@@ -50,7 +50,7 @@ public class ListenService:BackgroundService
         
         while (!cancellationToken.IsCancellationRequested)
         {
-            var awaitLimitInSeconds = 10;
+            var awaitLimitInSeconds = 5;
             var expiration =  Task.Delay(awaitLimitInSeconds*1000);
             var lineResponse = reader.ReadLineAsync();
 
@@ -62,8 +62,8 @@ public class ListenService:BackgroundService
             var line = lineResponse.Result;
             if (!string.IsNullOrWhiteSpace(line))
             {
-                var hitObject = JsonSerializer.Deserialize<HitObject>(line);
-                await handleHitServiceService.ReceiveHit(hitObject.Plate);
+                var hitObject = JsonSerializer.Deserialize<HitObject>(line); 
+                handleHitServiceService.ReceiveHit(hitObject.Plate);
             }
             
            

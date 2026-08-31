@@ -71,7 +71,7 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 // this adds controllers
-
+app.MapControllers();
 // no UI is needed yo bro
 /*app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();*/

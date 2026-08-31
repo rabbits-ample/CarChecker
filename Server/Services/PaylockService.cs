@@ -47,7 +47,6 @@ public class PaylockService : IPaylockService
             throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
         
         var credentials = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
-        
         Token token = await _tokenService.GetTokenAsync("path",credentials);
         // token could be null here? do a check
         

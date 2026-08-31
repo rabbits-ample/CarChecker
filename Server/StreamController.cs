@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace StreamAPITest;
 
 
-[Route("api")]
 [ApiController]
 public class StreamController : ControllerBase
 {
@@ -15,16 +14,13 @@ public class StreamController : ControllerBase
         Response.ContentType = "text/event-stream";
 
         int counter = 0;
-        List<int> delays = new List<int> { 1, 1, 1, 1, 1, 1, 1, 1};
-        List<string> plates = new List<string>() { "2C-5837", "1A-7429", "4B-3168", "7D-9052", "3F-6814", "8H-4276", "5K-1938", "9M-8641" };
-
         while (!cancellationToken.IsCancellationRequested)
         {
             //var line = $"{{\"Plate\":\"{plates[counter]}\",\"Ingress\": false }}\n";
             
             var json = new
             {
-                Plate =  plates[counter],
+                Plate =  $"Plate{counter}",
                 Ingress =  false,
             };
             var content = $"{JsonSerializer.Serialize(json)}\n";
@@ -33,11 +29,11 @@ public class StreamController : ControllerBase
             
             await Response.Body.FlushAsync(cancellationToken);
             
-            var delay = (int)(delays[counter] * 1000);
+            //var delay = (int)(delays[counter] * 1000);
+            // don't change this anymore
+            var delay = 200;
             await Task.Delay(delay, cancellationToken);
             counter++;
-            if (counter >= delays.Count)
-                counter = 0;
         }
     }
 

@@ -50,7 +50,7 @@ public class TextelService: ITextelService
             throw new InvalidOperationException("Configuration error: 'ClientSecret' is missing or empty.");
         
         var authentication = new StringContent($"{{\r\n  \"email\": \"{clientId}\",\r\n  \"password\": \"{clientSecret}\"\r\n}}", null, "text/plain");
-        
+        // textel has basic authentication -> which doesn't require a token. If Tyler wants this, then cool
         Token token = await _tokenService.GetTokenAsync("auth/authenticate",authentication);
         // token could be null here
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken); // I know that this sets the default. There is a way to attach to request instead of the other way around. 
