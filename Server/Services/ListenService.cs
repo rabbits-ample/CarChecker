@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Hangfire;
 
 namespace Server.Services;
 
@@ -40,6 +41,8 @@ public class ListenService:BackgroundService
         if (subscriptions.Content == null)
         {
             await _httpClient.GetAsync("events/subscribe?q=event(LprUnit,{eventType})");
+            //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:4590/WebSdk/events/subscribe?q=event(Camera,CameraMotion),event(Cardholder
+            // can do GUID instead of entityName
             // you can get event type raise by an entity/ maybe entityTYpe (so do that on LprUnit/ get an LprUnit id and then get it's event types to know which event type we want
         }
         var response = await _httpClient.GetAsync("events",HttpCompletionOption.ResponseHeadersRead, cancellationToken);
@@ -62,8 +65,10 @@ public class ListenService:BackgroundService
             var line = lineResponse.Result;
             if (!string.IsNullOrWhiteSpace(line))
             {
-                var hitObject = JsonSerializer.Deserialize<HitObject>(line); 
-                handleHitServiceService.ReceiveHit(hitObject.Plate);
+                var hitObject = JsonSerializer.Deserialize<HitObject>(line);
+                
+                BackgroundJob.Enqueue(() => handleHitServiceService.ReceiveHit(hitObject.Plate));
+
             }
             
            

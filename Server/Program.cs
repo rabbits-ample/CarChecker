@@ -1,8 +1,28 @@
+using Hangfire;
+using Hangfire.SqlServer;
 using Server;
 using Server.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHangfire(config =>
+    config
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(
+            builder.Configuration.GetConnectionString("HangfireConnection"),
+            new SqlServerStorageOptions
+            {
+                PrepareSchemaIfNecessary = true,
+                QueuePollInterval = TimeSpan.FromSeconds(1)
+            }));
+
+builder.Services.AddHangfireServer(options =>
+{
+    options.WorkerCount = Environment.ProcessorCount;
+});
 
 //List of potential secret directories
 var secretPaths = new[]

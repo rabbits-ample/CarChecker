@@ -28,10 +28,7 @@ public class StreamController : ControllerBase
             await Response.WriteAsync(content, cancellationToken);
             
             await Response.Body.FlushAsync(cancellationToken);
-            
-            //var delay = (int)(delays[counter] * 1000);
-            // don't change this anymore
-            var delay = 200;
+            var delay = 2000;
             await Task.Delay(delay, cancellationToken);
             counter++;
         }
