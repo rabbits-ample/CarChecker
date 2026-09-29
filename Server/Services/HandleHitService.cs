@@ -5,26 +5,19 @@ public class HandleHitService : IHandleHitService
 // change this controller so that it instead is a background process that initiates and calls a method.
     private readonly IPaylockService _paylockService;
     
-    private readonly ITextelService _textelService;
-    public HandleHitService( IPaylockService paylockService, ITextelService textelService)
+    public HandleHitService( IPaylockService paylockService)
     {
    
         _paylockService = paylockService;
-        _textelService = textelService;
     }
 
     public async Task ReceiveHit(string plate)
-    {
-        Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
-      
-       if (car.Registered == true && car.Active == false){
-           // if opted in
-           var warningText = $"Dear {car.Owner}, your car is about to explode."; 
-           await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+    { 
+        // logic to check if in enforced schedule
+        
+        await _paylockService.GetCarInfoAsync(plate);
            // directly after this the program needs to return because then the job won't retry. 
            // The more time there is after a text is sent, the more chance there is that a job gets retried, 
-           // a text could get sent mutliple times.
-        }
     }
 
 }

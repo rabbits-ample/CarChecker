@@ -52,21 +52,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<TokenShelf>();
 builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<ITextelService, TextelService>();
 builder.Services.AddScoped<IHandleHitService, HandleHitService>();
 builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
 {
-    var url = builder.Configuration["ApiUrls:Paylock"];
+    string url = builder.Configuration["ApiUrls:Paylock"];
     client.BaseAddress = new Uri(url);
 });
-builder.Services.AddHttpClient("Textel", client =>
-{
-    var url = builder.Configuration["ApiUrls:Textel"];
-    client.BaseAddress = new Uri(url);
-});
-
 
 builder.Services.AddHttpClient("Genetec", client =>
 {

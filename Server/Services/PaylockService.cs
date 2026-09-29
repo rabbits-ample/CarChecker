@@ -9,32 +9,22 @@ public class PaylockService : IPaylockService
     private readonly HttpClient _httpClient;
     private readonly ITokenService _tokenService;
     private readonly IConfiguration _config;
-    private readonly TokenShelf _tokenShelf;
+    
     public PaylockService(TokenShelf tokenShelf, IHttpClientFactory httpClientFactory,IConfiguration config)
     {
         _httpClient = httpClientFactory.CreateClient("Paylock");
-        var _tokenShelf = tokenShelf;
-        _tokenService = new TokenService(_httpClient,_tokenShelf);
+        _tokenService = new TokenService(_httpClient,tokenShelf);
         _config = config;
     }
 
-    public async Task<Car> GetCarInfoAsync(string plate)
+    public async Task<HttpResponseMessage> GetCarInfoAsync(string plate)
     {
         await Authenticate();
     
         var response = await _httpClient.GetAsync($"path/{plate}");
         response.EnsureSuccessStatusCode();
-       
-        var car = await response.Content.ReadFromJsonAsync<Car>();
         
-        if (car == null)
-        {
-            Console.WriteLine($"Car with license plate # '{plate}' not found.");
-            return null;
-        }
-
-        return car;
-        
+        return response;
     }
     public async Task Authenticate()
     {
