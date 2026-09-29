@@ -37,13 +37,13 @@ public class ListenService:BackgroundService
         
         Console.WriteLine("Connecting to the server...");
         
+        
         var subscriptions = await _httpClient.GetAsync("events/subscribed");
         if (subscriptions.Content == null)
         {
             await _httpClient.GetAsync("events/subscribe?q=event(LprUnit,{eventType})");
-            //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:4590/WebSdk/events/subscribe?q=event(Camera,CameraMotion),event(Cardholder
+            //events/subscribe?q=event(GUID,Read),event(GUID,Read)
             // can do GUID instead of entityName
-            // you can get event type raise by an entity/ maybe entityTYpe (so do that on LprUnit/ get an LprUnit id and then get it's event types to know which event type we want
         }
         var response = await _httpClient.GetAsync("events",HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         response.EnsureSuccessStatusCode();

@@ -18,9 +18,12 @@ public class HandleHitService : IHandleHitService
         Car car =  await _paylockService.GetCarInfoAsync(plate); // lookup plate, return Car object
       
        if (car.Registered == true && car.Active == false){
-               // if opted in
-               var warningText = $"Dear {car.Owner}, your car is about to explode."; 
-               await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+           // if opted in
+           var warningText = $"Dear {car.Owner}, your car is about to explode."; 
+           await _textelService.sendTextAsync(warningText,car.PhoneNumber);
+           // directly after this the program needs to return because then the job won't retry. 
+           // The more time there is after a text is sent, the more chance there is that a job gets retried, 
+           // a text could get sent mutliple times.
         }
     }
 

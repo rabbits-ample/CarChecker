@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Hangfire;
 using Hangfire.SqlServer;
 using Server;
@@ -69,9 +70,23 @@ builder.Services.AddHttpClient("Textel", client =>
 
 builder.Services.AddHttpClient("Genetec", client =>
 {
-    //var url = builder.Configuration["ApiUrls:Genetec"];
-    var url = builder.Configuration["ApiUrls:Testetec"];
+    var url = builder.Configuration["Genetec:BaseAddress.txt"];
     client.BaseAddress = new Uri(url);
+    
+    var username = builder.Configuration["Genetec:Username.txt"];
+    var password = builder.Configuration["Genetec:Password.txt"];
+    var authenticationString = $"{username}:{password}";
+    var base64String = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(authenticationString));
+    
+   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    // this will probably want to be changed when not in stage environment
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    };
+    return handler;
 });
 
 var app = builder.Build();

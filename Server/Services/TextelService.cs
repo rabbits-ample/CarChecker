@@ -20,6 +20,7 @@ public class TextelService: ITextelService
     public async Task<HttpResponseMessage> sendTextAsync(string warningText,string phoneNumber)
     {
         await Authenticate();
+        
         var json = new
         {
             messageId =  "",

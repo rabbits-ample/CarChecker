@@ -21,19 +21,19 @@ public class PaylockService : IPaylockService
     public async Task<Car> GetCarInfoAsync(string plate)
     {
         await Authenticate();
+    
+        var response = await _httpClient.GetAsync($"path/{plate}");
+        response.EnsureSuccessStatusCode();
+       
+        var car = await response.Content.ReadFromJsonAsync<Car>();
         
-            var response = await _httpClient.GetAsync($"path/{plate}");
-            response.EnsureSuccessStatusCode();
-           
-            var car = await response.Content.ReadFromJsonAsync<Car>();
-            
-            if (car == null)
-            {
-                Console.WriteLine($"Car with license plate # '{plate}' not found.");
-                return null;
-            }
+        if (car == null)
+        {
+            Console.WriteLine($"Car with license plate # '{plate}' not found.");
+            return null;
+        }
 
-            return car;
+        return car;
         
     }
     public async Task Authenticate()
