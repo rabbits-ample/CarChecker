@@ -1,8 +1,8 @@
 namespace Server;
 /// <summary>
-/// Hit object, received from Genetic streaming
+/// Read received from Genetic 
 /// </summary>
-public class HitObject
+public class Read
 {
     /// <summary>
     /// plate

@@ -65,9 +65,9 @@ public class ListenService:BackgroundService
             var line = lineResponse.Result;
             if (!string.IsNullOrWhiteSpace(line))
             {
-                var hitObject = JsonSerializer.Deserialize<HitObject>(line);
+                var hitObject = JsonSerializer.Deserialize<Read>(line);
                 
-                BackgroundJob.Enqueue(() => handleHitServiceService.ReceiveHit(hitObject.Plate));
+                BackgroundJob.Enqueue(() => handleHitServiceService.ProcessReadAsync(hitObject.Plate));
 
             }
             

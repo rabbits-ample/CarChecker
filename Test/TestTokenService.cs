@@ -29,6 +29,7 @@ public class TestTokenService
         httpClient.BaseAddress = new Uri("https://fake.token.endpoint");
         return httpClient;
     }
+    
     [Theory]
     [InlineData(3540)] //The exact age at which it expires (60 second buffer)
     [InlineData(3600)]

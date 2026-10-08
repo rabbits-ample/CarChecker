@@ -1,17 +1,15 @@
 namespace Server.Services;
-public class HandleHitService : IHandleHitService
+public class ProcessReadService : IHandleHitService
 {
-// depending on whether or not we can receive to a specific endpoint, we might have to
-// change this controller so that it instead is a background process that initiates and calls a method.
     private readonly IPaylockService _paylockService;
     
-    public HandleHitService( IPaylockService paylockService)
+    public ProcessReadService( IPaylockService paylockService)
     {
    
         _paylockService = paylockService;
     }
 
-    public async Task ReceiveHit(string plate)
+    public async Task ProcessReadAsync(string plate)
     { 
         // logic to check if in enforced schedule
         

@@ -13,7 +13,7 @@ public class AggregateAndReturnResponses : IHandleHitService
         _delay = delay;
     }
 
-    public async Task ReceiveHit(string plate)
+    public async Task ProcessReadAsync(string plate)
     {
         QueuedReads.Add(plate);
         //Console.WriteLine(plate);

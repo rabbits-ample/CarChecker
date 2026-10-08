@@ -50,9 +50,10 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<TokenShelf>();
+//builder.Services.AddSingleton<ParkingMapDatabase>();
 builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IHandleHitService, HandleHitService>();
+builder.Services.AddScoped<IHandleHitService, ProcessReadService>();
 builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
@@ -100,9 +101,6 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 // this adds controllers
 app.MapControllers();
-// no UI is needed yo bro
-/*app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();*/
 
 app.Run();
 

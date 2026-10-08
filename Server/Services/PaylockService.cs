@@ -19,14 +19,14 @@ public class PaylockService : IPaylockService
 
     public async Task<HttpResponseMessage> GetCarInfoAsync(string plate)
     {
-        await Authenticate();
+        await AuthenticateAsync();
     
         var response = await _httpClient.GetAsync($"path/{plate}");
         response.EnsureSuccessStatusCode();
         
         return response;
     }
-    public async Task Authenticate()
+    public async Task AuthenticateAsync()
     {
         var clientId = _config["Paylock:ClientId"];
         var clientSecret = _config["Paylock:ClientSecret"];
