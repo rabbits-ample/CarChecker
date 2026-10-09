@@ -1,8 +1,29 @@
+using System.Net.Http.Headers;
+using Hangfire;
+using Hangfire.SqlServer;
 using Server;
 using Server.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHangfire(config =>
+    config
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(
+            builder.Configuration.GetConnectionString("HangfireConnection"),
+            new SqlServerStorageOptions
+            {
+                PrepareSchemaIfNecessary = true,
+                QueuePollInterval = TimeSpan.FromSeconds(1)
+            }));
+
+builder.Services.AddHangfireServer(options =>
+{
+    options.WorkerCount = Environment.ProcessorCount;
+});
 
 //List of potential secret directories
 var secretPaths = new[]
@@ -29,21 +50,38 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<TokenShelf>();
+//builder.Services.AddSingleton<ParkingMapDatabase>();
 builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<ITextelService, TextelService>();
+builder.Services.AddScoped<IProcessReadService, ProcessReadService>();
+builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>
 {
-    var url = builder.Configuration["Paylock:URL"];
+    string url = builder.Configuration["ApiUrls:Paylock"];
     client.BaseAddress = new Uri(url);
 });
-builder.Services.AddHttpClient("Textel", client =>
+
+builder.Services.AddHttpClient("Genetec", client =>
 {
-    var url = builder.Configuration["Textel:URL"];
+    var url = builder.Configuration["Genetec:BaseAddress.txt"];
     client.BaseAddress = new Uri(url);
+    
+    var username = builder.Configuration["Genetec:Username.txt"];
+    var password = builder.Configuration["Genetec:Password.txt"];
+    var authenticationString = $"{username}:{password}";
+    var base64String = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(authenticationString));
+    
+   client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    // this will probably want to be changed when not in stage environment
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    };
+    return handler;
 });
-   
 
 var app = builder.Build();
 
@@ -63,8 +101,9 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 // this adds controllers
 app.MapControllers();
-// no UI is needed yo bro
-/*app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();*/
 
 app.Run();
+
+public partial class Program
+{
+}
