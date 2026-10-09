@@ -28,16 +28,5 @@ public class EntityService<T>(HttpClient httpClient) :IEntityService<T> where T:
         
         return wrapper.Rsp.Result; // this could fail if it was fed a not corresponding GUID. 
     }
-    
-    // VVV I actually don't think this is possible with the web SDK VVV
-    
-    /*public async Task<List<T>> GetEntities(List<string> guids)
-    {
-        String guidsQueryString = string.Join(",", guids);
-        var response = await _httpClient.GetAsync($"entity/{guidsQueryString}");
-        var obj = await response.Content.ReadFromJsonAsync<List<T>>();
-
-       
-        return obj;
-    }*/
+    // can't get multiple entities at once with webSDK
 }

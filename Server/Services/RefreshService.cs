@@ -1,26 +1,27 @@
+using Server.Interfaces;
+
 namespace Server.Services;
 
-public class RefreshService : BackgroundService // Right here quartz would go?
+public class RefreshService //: BackgroundService // Right here quartz would go?
 {
-    private EntityService<ParkingZone> _parkingZoneService;
-    private EntityService<ParkingZoneRule> _parkingZoneRuleService;
-    private EntityService<PermitRestriction> _permitRestrictionService;
+    private readonly IEntityService<ParkingZone> _parkingZoneService; // Interface allows it to be mocked and tested
+    private readonly IEntityService<ParkingZoneRule> _parkingZoneRuleService;
+    private readonly IEntityService<PermitRestriction> _permitRestrictionService;
     
-    private HttpClient _httpClient;
-    
-    public LotScheduleManager lotScheduleManager = new();
-    private List<String> ParkingZoneGUIDS = new(); // This may be defined and accessed only here. It also could be defined in the database???
+    private readonly LotScheduleManager _lotScheduleManager = new();
+    private List<String> _parkingZoneGUIDS = new() {"real","real","real"}; // This may be defined and accessed only here. It also could be defined in the database???
 
-    public RefreshService(IHttpClientFactory httpClientFactory)
+    public RefreshService(IEntityService<ParkingZone> parkingZoneService,
+        IEntityService<ParkingZoneRule> parkingZoneRuleService, IEntityService<PermitRestriction> permitRestrictionService)
     {
-        _httpClient = httpClientFactory.CreateClient("Genetec");
-        
-        _parkingZoneService = new(_httpClient);
-        _parkingZoneRuleService = new(_httpClient);
-        _permitRestrictionService = new(_httpClient);
+        //_httpClient = httpClientFactory.CreateClient("Genetec"); // because this doesn't happen here, remember to initialize these with Genetec client still in it's parent
+        _parkingZoneService = parkingZoneService;
+        _parkingZoneRuleService = parkingZoneRuleService;
+        _permitRestrictionService = permitRestrictionService;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    //protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task ExecuteAsync()
     {
         ParkingMapDatabase parkingMapDatabase = new();
         var refreshedZones = await GetUpdatedParkingZones();
@@ -33,7 +34,7 @@ public class RefreshService : BackgroundService // Right here quartz would go?
     private async Task<List<ParkingZone>> GetUpdatedParkingZones()
     {
         List<ParkingZone> refreshedZones = new();
-        foreach (string guid in ParkingZoneGUIDS)
+        foreach (string guid in _parkingZoneGUIDS)
         {
             // we will assume that error handing will occur internally or get escalated out.
             ParkingZone parkingZone = await _parkingZoneService.GetEntityAsync(guid);
@@ -45,8 +46,8 @@ public class RefreshService : BackgroundService // Right here quartz would go?
             var everyonePermit =  permitRestriction.ScheduledPermits.FirstOrDefault(sp => sp.Permits.IsEveryone);
             if (everyonePermit != null)
             {
-                var startEnforced = lotScheduleManager.ConvertStrToTimespan(everyonePermit.StartHour);
-                var endEnforced = lotScheduleManager.ConvertStrToTimespan(everyonePermit.EndHour);
+                var startEnforced = _lotScheduleManager.ConvertStrToTimespan(everyonePermit.StartHour);
+                var endEnforced = _lotScheduleManager.ConvertStrToTimespan(everyonePermit.EndHour);
 
                 parkingZone.StartEnforced = startEnforced;
                 parkingZone.EndEnforced = endEnforced;

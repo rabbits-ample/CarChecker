@@ -15,14 +15,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AReflectionAbstractionExtensions_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2026_002E1_003Fresharper_002Dhost_003FSourcesCache_003F3e1d99c4f685d121dd18d8f3adc986ebce7cffe5fbba6559145f724612af18c1_003FReflectionAbstractionExtensions_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ARuntimeType_002ECoreCLR_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2026_002E1_003Fresharper_002Dhost_003FSourcesCache_003Fbaf2eef7c7bbea3742b74ee71fe7168c3a8c2269a1ce22d51333175656840_003FRuntimeType_002ECoreCLR_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ATestInvoker_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2026_002E1_003Fresharper_002Dhost_003FSourcesCache_003F5e14a4e27990972fa4ae94975603bd298aaf328ee083c03b10569ee4724d57_003FTestInvoker_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=77f6150d_002D14e8_002D4a4e_002Da7b2_002D4b23bd874e3f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ListenServiceOutPuts" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestParkingMapDatabase.Test1&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=deac2b18_002D2276_002D4721_002D8d1d_002D42381a6cdafb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ListenService_Handles_Multiple_Instances_Of_ReceiveHit #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=154a1bc8_002Dcaca_002D4b0b_002Db136_002D143d6e0fc247/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ListenService_Handles_Multiple_Instances_Of_ReceiveHit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestListenService.ListenService_Handles_Multiple_Instances_Of_ReceiveHit&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestParkingMapDatabase&lt;/TestId&gt;
@@ -32,6 +25,47 @@
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Convert_String_To_TimeSpan_Test&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Is_Enforced_Now_Test&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Combined_Schedules_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestRefreshService.Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.Helpers.TestGetAthleticEventsService.TestGetAthleticEvents&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=34550d36_002D808e_002D44fa_002D8de1_002Df7786f145c22/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.deletethis&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=77f6150d_002D14e8_002D4a4e_002Da7b2_002D4b23bd874e3f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ListenServiceOutPuts" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestParkingMapDatabase.Test1&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=deac2b18_002D2276_002D4721_002D8d1d_002D42381a6cdafb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ListenService_Handles_Multiple_Instances_Of_ReceiveHit #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestListenService.ListenService_Handles_Multiple_Instances_Of_ReceiveHit&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestParkingMapDatabase&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService.EntityService_Maps_To_ParkingZone&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService.EntityService_Maps_To_PermitRestriction&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Convert_String_To_TimeSpan_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Is_Enforced_Now_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Combined_Schedules_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestRefreshService.Test&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e44cdedf_002D6879_002D4429_002Db537_002D52a36d2443c1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ListenService_Handles_Multiple_Instances_Of_ReceiveHit #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestListenService.ListenService_Handles_Multiple_Instances_Of_ReceiveHit&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestParkingMapDatabase&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService.EntityService_Maps_To_ParkingZone&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService.EntityService_Maps_To_PermitRestriction&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestEntityService&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Convert_String_To_TimeSpan_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Is_Enforced_Now_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestLotScheduleManager.Combined_Schedules_Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.TestRefreshService.Test&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::69505A38-00F6-4919-B527-00E5431AE2C2::net9.0::Test.Helpers.TestGetAthleticEventsService.TestGetAthleticEvents&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	

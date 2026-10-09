@@ -1,5 +1,5 @@
 namespace Server.Services;
-public class ProcessReadService : IHandleHitService
+public class ProcessReadService : IProcessReadService
 {
     private readonly IPaylockService _paylockService;
     

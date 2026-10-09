@@ -1,6 +1,6 @@
 namespace Server.Services;
 
-public interface IHandleHitService
+public interface IProcessReadService
 {
     public Task ProcessReadAsync(string plate);
 }

@@ -53,7 +53,7 @@ builder.Services.AddSingleton<TokenShelf>();
 //builder.Services.AddSingleton<ParkingMapDatabase>();
 builder.Services.AddScoped<IPaylockService, PaylockService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IHandleHitService, ProcessReadService>();
+builder.Services.AddScoped<IProcessReadService, ProcessReadService>();
 builder.Services.AddHostedService<ListenService>();
 
 builder.Services.AddHttpClient("Paylock", client =>

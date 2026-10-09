@@ -21,13 +21,13 @@ public class TestListenService: IClassFixture<WebApplicationFactory<Program>>
        _factory = factory;
     }
 
-    public ListenService CreateLiveListenService(IHandleHitService hitServiceStrategy)
+    public ListenService CreateLiveListenService(IProcessReadService hitServiceStrategy)
     {
         var fakeHandleHitService = hitServiceStrategy;
 
         var mockServiceProvider = new Mock<IServiceProvider>();
         mockServiceProvider
-            .Setup(sp => sp.GetService(typeof(IHandleHitService)))
+            .Setup(sp => sp.GetService(typeof(IProcessReadService)))
             .Returns(fakeHandleHitService);
 
         var mockScope = new Mock<IServiceScope>();
@@ -45,7 +45,7 @@ public class TestListenService: IClassFixture<WebApplicationFactory<Program>>
             b.UseEnvironment("Testing");
             b.ConfigureServices(services =>
             {
-                services.RemoveAll(typeof(IHandleHitService));
+                services.RemoveAll(typeof(IProcessReadService));
                 services.RemoveAll(typeof(IHostedService));
             });
         });

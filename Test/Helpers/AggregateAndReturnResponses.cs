@@ -2,7 +2,7 @@ using Server.Services;
 
 namespace Test.Helpers;
 
-public class AggregateAndReturnResponses : IHandleHitService
+public class AggregateAndReturnResponses : IProcessReadService
 {
     public List<String> QueuedReads = new ();
     public List<String> ProcessedReads = new();

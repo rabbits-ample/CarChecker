@@ -5,6 +5,7 @@ using Moq;
 using Moq.Protected;
 using Server;
 using Server.Services;
+using Test.Helpers;
 
 namespace Test;
 
@@ -49,9 +50,10 @@ public class TestEntityService
     public async void EntityService_Maps_To_ParkingZone()
     {
         // Arrange
+        CreateMockClient parkingZoneClient = new(HttpStatusCode.OK, "parkingZoneGUID", parkingZonePayload);
 
-        var parkingZoneClient = createMockHttpClient(HttpStatusCode.OK, "parkingZoneGUID", parkingZonePayload);
-        var parkingZoneSevice = new EntityService<ParkingZone>(parkingZoneClient);
+        //var parkingZoneClient = createMockHttpClient();
+        var parkingZoneSevice = new EntityService<ParkingZone>(parkingZoneClient.HttpClient);
         
         // Act
         ParkingZone parkingZone = await parkingZoneSevice.GetEntityAsync("parkingZoneGUID");
@@ -68,8 +70,8 @@ public class TestEntityService
     {
         // Arrange
 
-        var permitRestrictionClient = createMockHttpClient(HttpStatusCode.OK, "permitRestrictionGUID", permitRestrictionPayload);
-        var permitRestrictionService = new EntityService<PermitRestriction>(permitRestrictionClient);
+        CreateMockClient permitRestrictionClient = new(HttpStatusCode.OK, "permitRestrictionGUID", permitRestrictionPayload);
+        var permitRestrictionService = new EntityService<PermitRestriction>(permitRestrictionClient.HttpClient);
         
         // Act
         PermitRestriction permitRestriction = await permitRestrictionService.GetEntityAsync("permitRestrictionGUID");
@@ -82,27 +84,4 @@ public class TestEntityService
         Assert.Equal("permitRestrictionGUID",permitRestriction.ScheduledPermits[0].Permits.Guids[0]);
     }
     
-    public HttpClient createMockHttpClient(HttpStatusCode statusCode,  string path, object? content = null) // this could be made into a reusble helper/util....
-    {
-        // Set up a mock HttpMessageHandler to control the HttpClient's behavior.
-        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
-        mockHttpMessageHandler
-            .Protected()
-            .Setup<Task<HttpResponseMessage>>(
-                "SendAsync",
-                ItExpr.Is<HttpRequestMessage>(r =>
-                    r.Method == HttpMethod.Get &&
-                    r.RequestUri.AbsolutePath.EndsWith($"entity/{path}")),
-                ItExpr.IsAny<CancellationToken>())
-            .ReturnsAsync(new HttpResponseMessage // Returns a successful HTTP response
-            {
-                StatusCode = statusCode,
-                Content = JsonContent.Create(content) // Create is used on an object! not a string.
-            });
-
-        // Create an HttpClient instance using the mocked handler.
-        var httpClient = new HttpClient(mockHttpMessageHandler.Object);
-        httpClient.BaseAddress = new Uri("https://fake.token.endpoint");
-        return httpClient;
-    }
 }

@@ -33,7 +33,7 @@ public class ListenService:BackgroundService
     public async Task ConnectAndReadAsync(CancellationToken cancellationToken)
     {
         var scope = _scopeFactory.CreateScope();
-        IHandleHitService handleHitServiceService = scope.ServiceProvider.GetRequiredService<IHandleHitService>();
+        IProcessReadService processReadServiceService = scope.ServiceProvider.GetRequiredService<IProcessReadService>();
         
         Console.WriteLine("Connecting to the server...");
         
@@ -67,7 +67,7 @@ public class ListenService:BackgroundService
             {
                 var hitObject = JsonSerializer.Deserialize<Read>(line);
                 
-                BackgroundJob.Enqueue(() => handleHitServiceService.ProcessReadAsync(hitObject.Plate));
+                BackgroundJob.Enqueue(() => processReadServiceService.ProcessReadAsync(hitObject.Plate));
 
             }
             

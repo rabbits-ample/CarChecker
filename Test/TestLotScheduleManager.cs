@@ -35,7 +35,7 @@ public class TestLotScheduleManager
     [InlineData(3, 50,0, true,1)]
     [InlineData(16, 50,1, false,1)]
     [InlineData(16, 50,1, false,200)]
-    public void Is_Enforced_Now_Test(int hours, int min, int sec, bool result, int day = 0)
+    public void Is_Enforced_At_Test(int hours, int min, int sec, bool isEnforced, int day = 0)
 
     {
         // Arrange
@@ -47,13 +47,13 @@ public class TestLotScheduleManager
         ParkingZone parkingZone = new ParkingZone { StartEnforced = start, EndEnforced = end };
 
         
-        TimeSpan now = day == 0 ? new TimeSpan(hours, min, sec) : new TimeSpan(day, hours, min, sec);
+        TimeSpan time = day == 0 ? new TimeSpan(hours, min, sec) : new TimeSpan(day, hours, min, sec);
         
         // Act
-        bool isEnforced = manager.IsEnforcedAt(parkingZone.StartEnforced, parkingZone.EndEnforced, now);
+        bool result = manager.IsEnforcedAt(parkingZone.StartEnforced, parkingZone.EndEnforced, time);
 
         // Assert
-        Assert.Equal(result, isEnforced);
+        Assert.Equal(isEnforced,result);
     }
 
     [Fact]
@@ -66,13 +66,13 @@ public class TestLotScheduleManager
         {
             new TimeSpan(12,0,0),
             new TimeSpan(16,30,0),
-            new TimeSpan(11,25,0),
+            new TimeSpan(11,25,0), // min
             new TimeSpan(12,30,0)
         };
         List<TimeSpan> endTimes = new()
         { 
             new TimeSpan(23,30,0),
-            new TimeSpan(23,49,0),
+            new TimeSpan(23,49,0), // max
             new TimeSpan(17,00,0),
             new TimeSpan(13,30,0)
         };
